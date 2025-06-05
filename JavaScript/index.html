@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title></title>
+</head>
+<body>
+    <script>
+        // functions
+        function showHelloMessage(_notificationMessages) {
+            alert(_notificationMessages.start.hello);
+        }
+
+        function startTraining(_words, _result) {
+            for (let i = 0; i < _words.length; i++) {
+                let userAnswer = prompt(_words[i].original);
+                alert(userAnswer === _words[i].translation);
+                if (userAnswer === _words[i].translation) {
+                    _result.correctAnswersCount = _result.correctAnswersCount + 1;
+                }
+            }
+        }
+
+        function getPercentage(_result, _words) {
+            return _result.correctAnswersCount / _words.length * 100;
+        }
+
+        function showResult(_result, _words, _settings, _notificationMessages) {
+            const userCorrectAnswersPercent = getPercentage(result, words);
+
+            if (userCorrectAnswersPercent > settings.correctAnswersMinPercent) {
+                alert(notificationMessages.result.finishSuccess);
+            } else {
+                alert(notificationMessages.result.finishUnsuccess);
+            }
+        }
+
+        // data
+        const words = [
+            {
+                original: "Wassup",
+                translation: "Здарова"
+            },
+            {
+                original: "Bye",
+                translation: "Покеда"
+            },
+            {
+                original: "Programmer",
+                translation: "Программист"
+            },
+            {
+                original: "Laptop",
+                translation: "Ноутбук"
+            },
+            {
+                original: "Screen",
+                translation: "Экран"
+            }
+        ]
+
+        const notificationMessages = {
+            result: {
+                finishSuccess: "Молодец. Good result!",
+                finishUnsuccess: "Молодец. Но постарайся лучше!"
+            },
+            start: {
+                hello: "Hello man. You can learn English. Good luck"
+            }
+        }
+
+        const settings = {
+            correctAnswersMinPercent: 50
+        }
+
+        const result = {
+            correctAnswersCount: 0
+        }
+
+        // main
+        showHelloMessage(notificationMessages);
+        startTraining(words, result);
+        showResult(result, words, settings, notificationMessages);
+    </script>
+</body>
+</html>
